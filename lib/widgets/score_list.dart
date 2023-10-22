@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:futskor/model/fixture_model.dart';
+import 'package:futskor/services/data_service.dart';
 import 'package:futskor/services/football_api.dart';
 import 'package:futskor/widgets/score_list_item.dart';
 
@@ -12,11 +13,13 @@ class ScoreList extends StatefulWidget {
 
 class _ScoreListState extends State<ScoreList> {
   late final Future<List<MatchInfo>> liste;
+  late final List<MatchInfo> sonListe;
 
   @override
   void initState() {
     super.initState();
     liste = FootballApi.getData();
+    //DataService.ligleriAyir(liste as List<MatchInfo>);
   }
 
   @override
@@ -26,11 +29,12 @@ class _ScoreListState extends State<ScoreList> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var liste = snapshot.data;
+          DataService.ligleriAyir(liste);
           return ListView.builder(
-            itemCount: liste!.length,
+            itemCount: DataService.sonListe.length,
             itemBuilder: (context, index) {
-              var anlikElem = liste[index];
-              return ScoreListItem(gelenFixture:anlikElem);
+              var anlikLig = DataService.sonListe[index];
+              return ScoreListItem(gelenLig: anlikLig);
             },
           );
         } else if (snapshot.hasError) {
@@ -41,4 +45,6 @@ class _ScoreListState extends State<ScoreList> {
       },
     );
   }
+
+   
 }

@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
     FootballApi.getData();
     return Scaffold(
       appBar: appbar(),
-      body: ScoreList(),
+      body: const ScoreList(),
     );
   }
 
