@@ -7,4 +7,6 @@ class Constants{
     fontSize: 24,
     fontWeight: FontWeight.bold
   );
+
+  static const TextStyle ligStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
 }

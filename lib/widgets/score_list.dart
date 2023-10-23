@@ -19,7 +19,6 @@ class _ScoreListState extends State<ScoreList> {
   void initState() {
     super.initState();
     liste = FootballApi.getData();
-    //DataService.ligleriAyir(liste as List<MatchInfo>);
   }
 
   @override
@@ -29,7 +28,7 @@ class _ScoreListState extends State<ScoreList> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           var liste = snapshot.data;
-          DataService.ligleriAyir(liste);
+          //DataService.ligleriAyir(liste);
           return ListView.builder(
             itemCount: DataService.sonListe.length,
             itemBuilder: (context, index) {

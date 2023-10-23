@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:futskor/model/fixture_model.dart';
 
-class DataService{
-
+class DataService {
   static List<Map<String, List<MatchInfo>>> sonListe = [
     {"Avrupa Şampiyonasi - Elemeler": []},
     {"Hazırlık Maçları - Ülkeler": []},
@@ -20,69 +19,75 @@ class DataService{
     {"UEFA - Konferans Ligi": []},
     {"UEFA - Avrupa Ligi": []},
   ];
-  
+
   static void ligleriAyir(List<MatchInfo>? liste) {
     for (var item in liste!) {
       switch (item.league!.id) {
         case 960:
           sonListe[0]["Avrupa Şampiyonasi - Elemeler"]!.add(item);
-            break;
+          break;
         case 10:
           sonListe[1]["Hazırlık Maçları - Ülkeler"]!.add(item);
-            break;
+          break;
         case 667:
           sonListe[2]["Hazırlık Maçları - Kulüpler"]!.add(item);
-            break;
+          break;
         case 140:
           sonListe[3]["La Liga"]!.add(item);
-            break;
+          break;
         case 61:
           sonListe[4]["Ligue 1"]!.add(item);
-            break;
+          break;
         case 78:
           sonListe[5]["Bundesliga"]!.add(item);
-            break;
+          break;
         case 135:
           sonListe[6]["Seria A"]!.add(item);
-            break;
+          break;
         case 307:
           sonListe[7]["Pro Lig"]!.add(item);
-            break;
+          break;
         case 40:
           sonListe[8]["Championship"]!.add(item);
-            break;
+          break;
         case 39:
           sonListe[9]["Premier Lig"]!.add(item);
-            break;
+          break;
         case 203:
           sonListe[10]["Süper Lig"]!.add(item);
-            break;
+          break;
         case 204:
           sonListe[11]["TFF 1.Lig"]!.add(item);
-            break;
+          break;
         case 2:
           sonListe[12]["UEFA - Şampiyonlar Ligi"]!.add(item);
-            break;
+          break;
         case 848:
           sonListe[13]["UEFA - Konferans Ligi"]!.add(item);
-            break;
+          break;
         case 3:
           sonListe[14]["UEFA - Avrupa Ligi"]!.add(item);
-            break;
+          break;
 
         default:
       }
     }
 
     //mac olmayan ligleri listeden cıkar
-    sonListe.removeWhere(   //removeWhere kosula uyan elemanları listeden kaldırır
-      (map) => map.values.first.isEmpty  
-    );
+    sonListe.removeWhere(//removeWhere kosula uyan elemanları listeden kaldırır
+        (map) => map.values.first.isEmpty);
     debugPrint(sonListe.toString());
-        
+  }
+
+  static String saateCevirme(int i) {
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(
+      i * 1000,
+      isUtc: true,
+    );
+    DateTime localDate = date.toLocal();
+    DateTime turkeyDate = localDate.toLocal().add(const Duration(hours: 3));
+    return "${turkeyDate.hour}:${turkeyDate.minute}";
   }
 
 
-
 }
-

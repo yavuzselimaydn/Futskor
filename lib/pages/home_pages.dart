@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:futskor/constants/constants.dart';
-
-import 'package:futskor/services/football_api.dart';
 import 'package:futskor/widgets/score_list.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,7 +7,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FootballApi.getData();
     return Scaffold(
       appBar: appbar(),
       body: const ScoreList(),
