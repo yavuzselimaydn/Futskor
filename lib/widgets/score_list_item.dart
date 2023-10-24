@@ -11,14 +11,11 @@ class ScoreListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var maclar = gelenLig[gelenLig.keys.first];
+    var maclar = gelenLig[gelenLig.keys.first]; // map yapısındaki valueleri aldım
 
-    //lig ismini widget listesine ekledim
-    cards.add(
-      listeyeLigIsminiEkle(maclar, gelenLig),
-    );
-
-    // macları listeye ekledim
+    //ilk once lig ismini widget listesine ekledim
+    cards.add(listeyeLigIsminiEkle(maclar, gelenLig),);
+    //sonra  macları widget listesine ekledim
     for (var mac in maclar!) {
       cards.add(
         MacBilgisi(gelenMac: mac)
@@ -33,25 +30,25 @@ class ScoreListItem extends StatelessWidget {
 
 Widget listeyeLigIsminiEkle(maclar, gelenLig) {
   return SizedBox(
-    height: 35,
+    height: 40,
     child: Card(
       margin: const EdgeInsets.all(0),
       color: Colors.blueGrey.shade200,
-      child: Row(
-        children: [
-          const SizedBox(
-            width: 5,
-          ),
-          Image.network(
-            maclar![0].league!.logo ?? "",
-            fit: BoxFit.fitHeight,
-            width: 30,
-          ),
-          Text(
-            "  -   ${gelenLig.keys.first}",
-            style: Constants.ligStyle,
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Row(
+          children: [
+            Image.network(
+              maclar![0].league!.logo ?? "",
+              fit: BoxFit.fitHeight,
+              width: 30,
+            ),
+            Text(
+              "  -   ${gelenLig.keys.first}",
+              style: Constants.ligStyle,
+            ),
+          ],
+        ),
       ),
     ),
   );

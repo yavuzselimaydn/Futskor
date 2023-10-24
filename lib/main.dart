@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Futskor',
       theme: ThemeData(
-        textTheme: GoogleFonts.latoTextTheme(),
-        primarySwatch: Colors.blueGrey
+        textTheme: GoogleFonts.latoTextTheme(),  //uygulamanın ana yazı fontunu ayarladım  
+        primarySwatch: Colors.blueGrey         //uygulamanın default rengını ayarladım
       ),
       home: const HomePage(),
     );

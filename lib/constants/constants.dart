@@ -9,4 +9,6 @@ class Constants{
   );
 
   static const TextStyle ligStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.bold);
+
+  static const TextStyle oynananMacStyle = TextStyle(color: Colors.red,fontWeight: FontWeight.bold);
 }

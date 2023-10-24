@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:futskor/model/fixture_model.dart';
 
 class DataService {
+
+  //istedigim ligler icin map yapısı olusturdum
   static List<Map<String, List<MatchInfo>>> sonListe = [
     {"Avrupa Şampiyonasi - Elemeler": []},
     {"Hazırlık Maçları - Ülkeler": []},
@@ -74,8 +76,9 @@ class DataService {
     }
 
     //mac olmayan ligleri listeden cıkar
-    sonListe.removeWhere(//removeWhere kosula uyan elemanları listeden kaldırır
-        (map) => map.values.first.isEmpty);
+    sonListe.removeWhere(
+        (map) => map.values.first.isEmpty,  //removeWhere kosula uyan elemanları listeden kaldırır
+      );
     debugPrint(sonListe.toString());
   }
 

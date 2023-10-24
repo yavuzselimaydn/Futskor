@@ -13,22 +13,26 @@ class ScoreList extends StatefulWidget {
 
 class _ScoreListState extends State<ScoreList> {
   late final Future<List<MatchInfo>> liste;
-  late final List<MatchInfo> sonListe;
+
+  int sayac = 0;
 
   @override
   void initState() {
     super.initState();
-    liste = FootballApi.getData();
+    liste = FootballApi.getData();  //her builde getData fonku calısmasın dıye initState icınde yazdım, sayfa acılırken bır kere veri alınacak
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: liste,
+      future: liste,  //veriyi buraya koyarım
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          var liste = snapshot.data;
-          //DataService.ligleriAyir(liste);
+        if (snapshot.hasData) { //veri geldıyse
+          var liste = snapshot.data;  //snapshottan veriyi cıkardım
+          if(sayac == 0){  //boylece her buildde ligleri ayirda hataya dusmeyecek,sadece ilk acıldıgında ligleri ayiracak
+            DataService.ligleriAyir(liste);
+            sayac ++;
+          }
           return ListView.builder(
             itemCount: DataService.sonListe.length,
             itemBuilder: (context, index) {
@@ -36,9 +40,9 @@ class _ScoreListState extends State<ScoreList> {
               return ScoreListItem(gelenLig: anlikLig);
             },
           );
-        } else if (snapshot.hasError) {
+        } else if (snapshot.hasError) { //hata geldiyse
           return Center(child: Text(snapshot.error.toString()));
-        } else {
+        } else { // veri gelene kadar
           return const Center(child: CircularProgressIndicator());
         }
       },
