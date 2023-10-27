@@ -12,42 +12,61 @@ class ScoreList extends StatefulWidget {
 }
 
 class _ScoreListState extends State<ScoreList> {
-  late final Future<List<MatchInfo>> liste;
 
+  late Future<List<MatchInfo>> liste;
   int sayac = 0;
+
 
   @override
   void initState() {
     super.initState();
-    liste = FootballApi.getData();  //her builde getData fonku calısmasın dıye initState icınde yazdım, sayfa acılırken bır kere veri alınacak
+    liste = FootballApi.getData();  //her builde getData fonku calısmasın dıye initState icınde yazdım.
+  }
+
+  Future<void> _refresh() async {
+      var veri = FootballApi.getData();
+      await veri;
+      liste = veri;
+      setState(() {
+        sayac = 0;
+      });
+      
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: liste,  //veriyi buraya koyarım
-      builder: (context, snapshot) {
-        if (snapshot.hasData) { //veri geldıyse
-          var liste = snapshot.data;  //snapshottan veriyi cıkardım
-          if(sayac == 0){  //boylece her buildde ligleri ayirda hataya dusmeyecek,sadece ilk acıldıgında ligleri ayiracak
-            DataService.ligleriAyir(liste);
-            sayac ++;
+    return RefreshIndicator(
+      onRefresh: _refresh,
+      child: FutureBuilder(
+        //initialData: ["veri"],
+        future:liste,  //veriyi buraya koyarım
+        builder: (context, snapshot) {
+          if (snapshot.hasData) { //veri geldıyse
+            var liste = snapshot.data;  //snapshottan veriyi cıkardım
+            if(sayac == 0 ){  //boylece her buildde ligleri ayirda hataya dusmeyecek,sadece ilk acıldıgında ligleri ayiracak
+              DataService.ligleriAyir(liste);
+              sayac ++;
+            }
+
+            return ListView.builder(
+              itemCount: DataService.liste1.length,
+              itemBuilder: (context, index) {
+                var anlikLig = DataService.liste1[index];
+                return ScoreListItem(gelenLig: anlikLig);
+              },
+            );
+          } else if (snapshot.hasError) { //hata geldiyse
+            return Center(child: Text(snapshot.error.toString()));
+          } else {  // veri gelene kadar
+            return const Center(child: CircularProgressIndicator());
           }
-          return ListView.builder(
-            itemCount: DataService.sonListe.length,
-            itemBuilder: (context, index) {
-              var anlikLig = DataService.sonListe[index];
-              return ScoreListItem(gelenLig: anlikLig);
-            },
-          );
-        } else if (snapshot.hasError) { //hata geldiyse
-          return Center(child: Text(snapshot.error.toString()));
-        } else { // veri gelene kadar
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
+        },
+      ),
     );
   }
+  
+  
+
 
    
 }

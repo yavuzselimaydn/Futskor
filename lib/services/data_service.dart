@@ -4,7 +4,7 @@ import 'package:futskor/model/fixture_model.dart';
 class DataService {
 
   //istedigim ligler icin map yapısı olusturdum
-  static List<Map<String, List<MatchInfo>>> sonListe = [
+   static List<Map<String, List<MatchInfo>>> sonListe = [
     {"Avrupa Şampiyonasi - Elemeler": []},
     {"Hazırlık Maçları - Ülkeler": []},
     {"Hazırlık Maçları - Kulüpler": []},
@@ -21,6 +21,8 @@ class DataService {
     {"UEFA - Konferans Ligi": []},
     {"UEFA - Avrupa Ligi": []},
   ];
+
+  static List<Map<String, List<MatchInfo>>> liste1= [];
 
   static void ligleriAyir(List<MatchInfo>? liste) {
     for (var item in liste!) {
@@ -74,12 +76,32 @@ class DataService {
         default:
       }
     }
+    
+
+    liste1 = sonListe;
+    sonListe = [
+    {"Avrupa Şampiyonasi - Elemeler": []},
+    {"Hazırlık Maçları - Ülkeler": []},
+    {"Hazırlık Maçları - Kulüpler": []},
+    {"La Liga": []},
+    {"Ligue 1": []},
+    {"Bundesliga": []},
+    {"Seria A": []},
+    {"Pro Lig": []},
+    {"Championship": []},
+    {"Premier Lig": []},
+    {"Süper Lig": []},
+    {"TFF 1.Lig": []},
+    {"UEFA - Şampiyonlar Ligi": []},
+    {"UEFA - Konferans Ligi": []},
+    {"UEFA - Avrupa Ligi": []},
+  ];
 
     //mac olmayan ligleri listeden cıkar
-    sonListe.removeWhere(
+    liste1.removeWhere(
         (map) => map.values.first.isEmpty,  //removeWhere kosula uyan elemanları listeden kaldırır
       );
-    debugPrint(sonListe.toString());
+    debugPrint(liste1.toString());
   }
 
   static String saateCevirme(int i) {
@@ -88,8 +110,8 @@ class DataService {
       isUtc: true,
     );
     DateTime localDate = date.toLocal();
-    DateTime turkeyDate = localDate.toLocal().add(const Duration(hours: 3));
-    return "${turkeyDate.hour}:${turkeyDate.minute}";
+    //DateTime turkeyDate = localDate.toLocal().add(const Duration(hours: 3));
+    return "${localDate.hour}:${localDate.minute}";
   }
 
 

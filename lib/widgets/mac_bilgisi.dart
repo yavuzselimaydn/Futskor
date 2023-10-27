@@ -49,8 +49,9 @@ class MacBilgisi extends StatelessWidget {
             const SizedBox(
               width: 40,
               child: Text(
-                "-",
+                "v",
                 textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             Expanded(
