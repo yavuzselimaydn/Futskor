@@ -12,7 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var key = GlobalKey();
+  
+
   @override
   Widget build(BuildContext context) {
     DateTime suan = DateTime.now();
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: appbar(suan, birAyOncesi, birAySonrasi),
-      body:  ScoreList(key: key,),
+      body: ScoreList(),
     );
   }
 
@@ -43,12 +44,14 @@ class _HomePageState extends State<HomePage> {
                 initialDate: suan,
                 firstDate: birAySonrasi,
                 lastDate: birAyOncesi,
-        
-              ).then((value) {
-                debugPrint(formatDate(value!,[yyyy, '-', mm, '-', dd]));
-                FootballApi.tarih = formatDate(value!,[yyyy, '-', mm, '-', dd]);
-                key.currentState!.activate();
-              },);
+              ).then(
+                (value) {
+                    FootballApi.tarih = formatDate(value!, [yyyy, '-', mm, '-', dd]);
+                    setState(() {
+                      
+                    });
+                },
+              );
             },
             icon: const Icon(Icons.calendar_month),
           ),

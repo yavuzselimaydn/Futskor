@@ -44,7 +44,7 @@ Widget listeyeLigIsminiEkle(maclar, gelenLig) {
               width: 30,
             ),
             Text(
-              "  -   ${gelenLig.keys.first}",
+              "   ${gelenLig.keys.first}",
               style: Constants.ligStyle,
             ),
           ],

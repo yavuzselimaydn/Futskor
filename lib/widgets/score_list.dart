@@ -12,42 +12,32 @@ class ScoreList extends StatefulWidget {
 }
 
 class _ScoreListState extends State<ScoreList> {
-
   late Future<List<MatchInfo>> liste;
-  int sayac = 0;
-
 
   @override
   void initState() {
     super.initState();
-    liste = FootballApi.getData();  //her builde getData fonku calısmasın dıye initState icınde yazdım.
+    liste = FootballApi.getData(); //her builde getData fonku calısmasın dıye initState icınde yazdım.
   }
 
-  Future<void> _refresh() async {
-      var veri = FootballApi.getData();
-      await veri;
-      liste = veri;
-      setState(() {
-        sayac = 0;
-      });
-      
+  Future<void> refresh() async {
+    var veri = FootballApi.getData();
+    await veri;
+    liste = veri;
+    setState(() {});
+    debugPrint(FootballApi.tarih);
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: _refresh,
+      onRefresh: refresh,
       child: FutureBuilder(
-        //initialData: ["veri"],
-        future:liste,  //veriyi buraya koyarım
+        future: liste,                    //veriyi buraya koyarım
         builder: (context, snapshot) {
-          if (snapshot.hasData) { //veri geldıyse
-            var liste = snapshot.data;  //snapshottan veriyi cıkardım
-            if(sayac == 0 ){  //boylece her buildde ligleri ayirda hataya dusmeyecek,sadece ilk acıldıgında ligleri ayiracak
-              DataService.ligleriAyir(liste);
-              sayac ++;
-            }
-
+          if (snapshot.hasData) {         //veri geldıyse
+            var liste = snapshot.data;    //snapshottan veriyi cıkardım
+            DataService.ligleriAyir(liste);
             return ListView.builder(
               itemCount: DataService.liste1.length,
               itemBuilder: (context, index) {
@@ -55,18 +45,13 @@ class _ScoreListState extends State<ScoreList> {
                 return ScoreListItem(gelenLig: anlikLig);
               },
             );
-          } else if (snapshot.hasError) { //hata geldiyse
+          } else if (snapshot.hasError) {  //hata geldiyse
             return Center(child: Text(snapshot.error.toString()));
-          } else {  // veri gelene kadar
+          } else {                         // veri gelene kadar
             return const Center(child: CircularProgressIndicator());
           }
         },
       ),
     );
   }
-  
-  
-
-
-   
 }

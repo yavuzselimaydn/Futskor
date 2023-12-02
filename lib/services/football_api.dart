@@ -3,13 +3,15 @@ import 'package:dio/dio.dart';
 import 'package:futskor/model/fixture_model.dart';
 
 class FootballApi {
-  static String _url ="https://v3.football.api-sports.io/fixtures?date=${tarih}";
-  static String tarih = formatDate(DateTime.now()!,[yyyy, '-', mm, '-', dd]) ;
+
+  static String tarih = formatDate(DateTime.now(),[yyyy, '-', mm, '-', dd]) ;
+  static final String _url ="https://v3.football.api-sports.io/fixtures?date=${tarih}";
   
   static const Map<String, dynamic> _headers = {
       'x-rapidapi-key': '902beaf0c4c3eef7ba8b4fa4b47a06d1',
       'x-rapidapi-host': 'v3.football.api-sports.io'
     };
+
 
   //apiden veriyi ceken fonksiyon
   static Future<List<MatchInfo>> getData() async {
@@ -22,9 +24,11 @@ class FootballApi {
       ),
     );
 
-    if (response.statusCode == 200) { //vveri geldiyse
+    if (response.statusCode == 200) {        //veri geldiyse
       var fixList = response.data["response"] as List;
-      list = fixList.map((e) => MatchInfo.fromJson(e)).toList();
+      list = fixList.map(
+        (e) => MatchInfo.fromJson(e)
+      ).toList();
       return list;
     }
 

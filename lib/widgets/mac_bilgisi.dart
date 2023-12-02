@@ -37,6 +37,7 @@ class MacBilgisi extends StatelessWidget {
               child: Text(
                 saat,
                 textAlign: TextAlign.center,
+                style: const  TextStyle(fontSize: 12),
               ),
             ),
             SizedBox(
@@ -148,7 +149,43 @@ class MacBilgisi extends StatelessWidget {
         );
 
       default:
-        return const Text("PT");
+        //return const Text("PT");
+        return Row(
+          children: [
+            const SizedBox(
+              width: 5,
+            ),
+            const SizedBox(
+              width: 40,
+              child: Text(
+                "ERT",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              width: (genislik / 2) - 65,
+              child: Text(
+                "${gelenMac.teams!.home!.name}",
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(
+              width: 40,
+              child: Text(
+                "v",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            Expanded(
+              child: Text(
+                "${gelenMac.teams!.away!.name}",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        );
     }
   }
 }
